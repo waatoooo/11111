@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>拼车福利抽奖</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 100px;
+      background: #f5f5f5;
+    }
+    h1 {
+      font-size: 2em;
+    }
+    .result {
+      font-size: 1.5em;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🎁 拼车福利抽奖 🎁</h1>
+<div id="info"></div>
+<div class="result" id="result"></div>
+
+<script>
+  // 固定中奖名单编号（可以是数组，也可以是随机选定）
+  const luckyNumbers = [1]; // 例如第3位是奶酪，中奖编号设为3
+  const localKey = "lotteryNumber2025";
+
+  // 获取本地编号，如果没有就创建一个
+  let myNumber = localStorage.getItem(localKey);
+  if (!myNumber) {
+    let currentCount = parseInt(localStorage.getItem("totalVisitors2025") || "0") + 1;
+    localStorage.setItem("totalVisitors2025", currentCount);
+    localStorage.setItem(localKey, currentCount);
+    myNumber = currentCount;
+  } else {
+    myNumber = parseInt(myNumber);
+  }
+
+  document.getElementById("info").innerHTML = `你是第 <b>${myNumber}</b> 位参与者`;
+
+  // 判断是否中奖
+  if (luckyNumbers.includes(myNumber)) {
+    document.getElementById("result").innerHTML = "🎉 恭喜你中奖了！";
+  } else {
+    document.getElementById("result").innerHTML = "😢 很遗憾，你未中奖";
+  }
+</script>
+
+</body>
+</html>
